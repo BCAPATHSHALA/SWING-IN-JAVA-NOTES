@@ -9,6 +9,7 @@ import javax.swing.event.*;
 
 public class GUI58 extends JFrame implements ActionListener
 {
+	JDialog dialog;
 	public GUI58()
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +21,7 @@ public class GUI58 extends JFrame implements ActionListener
 		JPanel panel=new JPanel();
 		add(panel);
 
-		JButton button1=new JButton("Click");
+		JButton button1=new JButton("Click1");
 		panel.add(button1);
 
 		button1.addActionListener(this);
@@ -32,11 +33,41 @@ public class GUI58 extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		JDialog dialog=new JDialog(this,"JDialog1");
+		if(e.getActionCommand().equals("Click1"))
+		{
+			showFirstDialog();
+		}
+		else
+		{
+			showSecondDialog();
+		}
+
+	}
+
+	private void showFirstDialog()
+	{
+		dialog=new JDialog(this,"JDialog1");
 		dialog.setSize(200,300);
-		dialog.add(new JLabel("This is a JDialog1"));
+		 
+		JPanel panel1=new JPanel();
+		dialog.add(panel1);
+
+		JButton button2=new JButton("Click2");
+		panel1.add(button2);
+
+		button2.addActionListener(this);
+
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
+	}
+
+	private void showSecondDialog()
+	{
+		JDialog dialog2=new JDialog(dialog,"JDialog2");
+		dialog2.setSize(200,300);
+		dialog2.setLocationRelativeTo(null);
+		dialog2.add(new JLabel("Dialog2"));
+		dialog2.setVisible(true);
 	}
 	
 
