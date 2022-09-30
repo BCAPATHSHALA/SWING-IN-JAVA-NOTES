@@ -46,8 +46,9 @@ class XClass implements ActionListener
 		if(e.getActionCommand().equals("Click"))
 		{
 			frame2 = new JFrame();
+			frame1.dispose();
 			frame2.setTitle("Another frame2");
-			frame2.setSize(650,400);
+			frame2.setSize(300,150);
 			frame2.setLocationRelativeTo(frame1);
 			frame2.setResizable(false);
 			frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -69,6 +70,7 @@ class XClass implements ActionListener
 			String message=t1.getText().toString();
 			label1.setText(message);
 			frame2.dispose();
+			frame1.setVisible(true);
 		}
 	}
 }
