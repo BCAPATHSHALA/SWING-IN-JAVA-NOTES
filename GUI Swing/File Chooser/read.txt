@@ -1,0 +1,16 @@
+JFileChooser is a very useful component that is used to show a system dialog to the user so that the user can choose a file or a directory.
+
+
+✓ How to create a system dialog using JFileChooser. 
+
+✓ Set the initial path of the system dialog. 
+
+✓ Create an open dialog and save dialog using a file chooser. 
+
+✓ How to create a dialog that selects directory only. 
+
+✓ How to create a dialog from which the user can select multiple
+files at once. 
+
+✓ How to create a dialog that selects specific types of files
+only.
