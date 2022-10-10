@@ -1,0 +1,33 @@
+NOTE: Set JDBC Driver class path 
+
+1) load the driver:
+	I. Class.forName("com.mysql.cj.jdbc.Driver") or
+	II. DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver);
+2) Create a connection:
+	Connection con=DriverManager.getConnection("url","username","password");
+
+	url= jdbc:mysql://localhost:7867/dbname
+	user= root
+	pass=root@7867
+	port=7867(3306)
+	dbname= youtube
+
+3) create a query, OR Statement, OR PreparedStatement, OR CallableStatement :
+	
+	String q=" select * from students"; //create query
+	Statement stmt=con.createStatement(); // create statement
+
+	ResultSet set=stmt.executeQuery(q); // set resultset
+	OR stmt.executeUpdate(q); // Insert table
+	OR stmt.execute(q); 
+
+4) process the data:
+	while(set.next())// rows counting
+	{
+		int id=set.getInt("column name");
+		String name=set.getString("column name");
+		System.out.println(id);
+		System.out.println(name);
+	}
+5) close the connection:
+	con.Close();
