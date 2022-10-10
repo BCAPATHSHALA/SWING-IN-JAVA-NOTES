@@ -1,0 +1,10 @@
+step01: download the xampp
+step02: create the database (Workbench and MysqPHP admin)
+step03: download the mysql connector jar(platform independent)
+step04: create java program 
+step05: connect the jar connector file
+step06: make connection with Mysql
+
+
+
+>>javap com.mysql.jdbc.Driver

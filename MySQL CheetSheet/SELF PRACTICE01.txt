@@ -1,0 +1,718 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| record1            |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use record1;
+Database changed
+mysql> show database record1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database record1' at line 1
+mysql> show record1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'record1' at line 1
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> show tables;
++-------------------+
+| Tables_in_record1 |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| ID      | int          | NO   | PRI | NULL    |       |
+| NAME    | varchar(200) | NO   |     | NULL    |       |
+| CITY    | varchar(200) | NO   |     | NULL    |       |
+| COUNTRY | varchar(100) | NO   |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into student values (23,"ankit","delhi","ind");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from student;
++----+-------+-------+---------+
+| ID | NAME  | CITY  | COUNTRY |
++----+-------+-------+---------+
+| 23 | ankit | delhi | ind     |
++----+-------+-------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into student values (24, "sanket", "lucknow","india");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into student values (234,"ishant","lucknow", "india");
+Query OK, 1 row affected (0.41 sec)
+
+mysql> insert into student values (246,"sumit","lucknow","india");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student values (2334,"aman","kanpur","india");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student values (24234236,"ramsingh","lucknow","india");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from student;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       23 | ankit    | delhi   | ind     |
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where city="lucknow";
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select name, city, country from student where country="india";
++----------+---------+---------+
+| name     | city    | country |
++----------+---------+---------+
+| sanket   | lucknow | india   |
+| ishant   | lucknow | india   |
+| sumit    | lucknow | india   |
+| aman     | kanpur  | india   |
+| ramsingh | lucknow | india   |
++----------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select name as "USER NAME" from student;
++-----------+
+| USER NAME |
++-----------+
+| ankit     |
+| sanket    |
+| ishant    |
+| sumit     |
+| aman      |
+| ramsingh  |
++-----------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct(country) from student;
++---------+
+| country |
++---------+
+| ind     |
+| india   |
++---------+
+2 rows in set (0.30 sec)
+
+mysql> select * from student;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       23 | ankit    | delhi   | ind     |
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where county="india" and city="lucknow";
+ERROR 1054 (42S22): Unknown column 'county' in 'where clause'
+mysql> select * from student where country="india" and city="lucknow";
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where country="india" or city="lucknow";
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where id>=24 and id<=2334;
++------+--------+---------+---------+
+| ID   | NAME   | CITY    | COUNTRY |
++------+--------+---------+---------+
+|   24 | sanket | lucknow | india   |
+|  234 | ishant | lucknow | india   |
+|  246 | sumit  | lucknow | india   |
+| 2334 | aman   | kanpur  | india   |
++------+--------+---------+---------+
+4 rows in set (0.05 sec)
+
+mysql> select * from student where id between 24 and 2334;
++------+--------+---------+---------+
+| ID   | NAME   | CITY    | COUNTRY |
++------+--------+---------+---------+
+|   24 | sanket | lucknow | india   |
+|  234 | ishant | lucknow | india   |
+|  246 | sumit  | lucknow | india   |
+| 2334 | aman   | kanpur  | india   |
++------+--------+---------+---------+
+4 rows in set (0.30 sec)
+
+mysql> select * from student where id>24 and id<2334;
++-----+--------+---------+---------+
+| ID  | NAME   | CITY    | COUNTRY |
++-----+--------+---------+---------+
+| 234 | ishant | lucknow | india   |
+| 246 | sumit  | lucknow | india   |
++-----+--------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where id=23 or id=234 or id=246;
++-----+--------+---------+---------+
+| ID  | NAME   | CITY    | COUNTRY |
++-----+--------+---------+---------+
+|  23 | ankit  | delhi   | ind     |
+| 234 | ishant | lucknow | india   |
+| 246 | sumit  | lucknow | india   |
++-----+--------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where id in(23,234,246);
++-----+--------+---------+---------+
+| ID  | NAME   | CITY    | COUNTRY |
++-----+--------+---------+---------+
+|  23 | ankit  | delhi   | ind     |
+| 234 | ishant | lucknow | india   |
+| 246 | sumit  | lucknow | india   |
++-----+--------+---------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student limit 4;
++-----+--------+---------+---------+
+| ID  | NAME   | CITY    | COUNTRY |
++-----+--------+---------+---------+
+|  23 | ankit  | delhi   | ind     |
+|  24 | sanket | lucknow | india   |
+| 234 | ishant | lucknow | india   |
+| 246 | sumit  | lucknow | india   |
++-----+--------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student limit 2 2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2' at line 1
+mysql> select * from student limit 2 offset 2;
++-----+--------+---------+---------+
+| ID  | NAME   | CITY    | COUNTRY |
++-----+--------+---------+---------+
+| 234 | ishant | lucknow | india   |
+| 246 | sumit  | lucknow | india   |
++-----+--------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student order by id;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       23 | ankit    | delhi   | ind     |
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by name;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|     2334 | aman     | kanpur  | india   |
+|       23 | ankit    | delhi   | ind     |
+|      234 | ishant   | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
+|       24 | sanket   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.03 sec)
+
+mysql> select * from student order by name asc;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|     2334 | aman     | kanpur  | india   |
+|       23 | ankit    | delhi   | ind     |
+|      234 | ishant   | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
+|       24 | sanket   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id acs;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'acs' at line 1
+mysql> select * from student order by id asc;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       23 | ankit    | delhi   | ind     |
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id desc;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+| 24234236 | ramsingh | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+|      246 | sumit    | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|       24 | sanket   | lucknow | india   |
+|       23 | ankit    | delhi   | ind     |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by name desc;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|      246 | sumit    | lucknow | india   |
+|       24 | sanket   | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|       23 | ankit    | delhi   | ind     |
+|     2334 | aman     | kanpur  | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student order by id desc limit 2;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+| 24234236 | ramsingh | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
++----------+----------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       23 | ankit    | delhi   | ind     |
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from student where NAME like "a%";
++------+-------+--------+---------+
+| ID   | NAME  | CITY   | COUNTRY |
++------+-------+--------+---------+
+|   23 | ankit | delhi  | ind     |
+| 2334 | aman  | kanpur | india   |
++------+-------+--------+---------+
+2 rows in set (0.03 sec)
+
+mysql> select * from student where CITY like "_U%";
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where CITY like "%o_";
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from student where CITY like "%u_";
++------+------+--------+---------+
+| ID   | NAME | CITY   | COUNTRY |
++------+------+--------+---------+
+| 2334 | aman | kanpur | india   |
++------+------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select SUM(id) from student;
++----------+
+| SUM(id)  |
++----------+
+| 24237097 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> select AVG(id) from student;
++--------------+
+| AVG(id)      |
++--------------+
+| 4039516.1667 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(id) from student;
++---------+
+| MIN(id) |
++---------+
+|      23 |
++---------+
+1 row in set (0.04 sec)
+
+mysql> select MAX(id) from student;
++----------+
+| MAX(id)  |
++----------+
+| 24234236 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(id) from student;
++-----------+
+| COUNT(id) |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.03 sec)
+
+
+mysql> select NAME from student where id = (select MIN(id) from student) ;
++-------+
+| NAME  |
++-------+
+| ankit |
++-------+
+1 row in set (0.03 sec)
+
+mysql> select NAME from student where id = (select MAX(id) from student) ;
++----------+
+| NAME     |
++----------+
+| ramsingh |
++----------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| record1            |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use record1;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_record1 |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> create table laptops;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table laptops (LID int primary key, LModel varchar(200), StudentID int, foreign key(StudentID) reference student(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference student(ID)' at line 1
+mysql> create table laptops (LID int primary key, LModel varchar(200), StudentID int, foreign key(StudentID) references student(ID);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create table laptops(lid int primary key, lmodel varchar(200), studentId int , foreign key(studentId) references student(id));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_record1 |
++-------------------+
+| laptops           |
+| student           |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> desc laptops;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| lid       | int          | NO   | PRI | NULL    |       |
+| lmodel    | varchar(200) | YES  |     | NULL    |       |
+| studentId | int          | YES  | MUL | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc students;
+ERROR 1146 (42S02): Table 'record1.students' doesn't exist
+mysql> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| ID      | int          | NO   | PRI | NULL    |       |
+| NAME    | varchar(200) | NO   |     | NULL    |       |
+| CITY    | varchar(200) | NO   |     | NULL    |       |
+| COUNTRY | varchar(100) | NO   |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into laptops values(13414,'HP',23);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from laptops;
++-------+--------+-----------+
+| lid   | lmodel | studentId |
++-------+--------+-----------+
+| 13414 | HP     |        23 |
++-------+--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> insert into laptops values(13414,'Dell',24);
+ERROR 1062 (23000): Duplicate entry '13414' for key 'laptops.PRIMARY'
+mysql> insert into laptops values(134132454,'Dell',24);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from laptops;
++-----------+--------+-----------+
+| lid       | lmodel | studentId |
++-----------+--------+-----------+
+|     13414 | HP     |        23 |
+| 134132454 | Dell   |        24 |
++-----------+--------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student;
++----------+----------+---------+---------+
+| ID       | NAME     | CITY    | COUNTRY |
++----------+----------+---------+---------+
+|       23 | ankit    | delhi   | ind     |
+|       24 | sanket   | lucknow | india   |
+|      234 | ishant   | lucknow | india   |
+|      246 | sumit    | lucknow | india   |
+|     2334 | aman     | kanpur  | india   |
+| 24234236 | ramsingh | lucknow | india   |
++----------+----------+---------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select student.NAME, student.CITY, laptops.LModel from student, laptops where student.ID=laptops.studentId;
++--------+---------+--------+
+| NAME   | CITY    | LModel |
++--------+---------+--------+
+| ankit  | delhi   | HP     |
+| sanket | lucknow | Dell   |
++--------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select student.NAME, student.CITY, laptops.LModel from student, laptops where student.ID=laptops.studentId and student.NAME="ankit";
++-------+-------+--------+
+| NAME  | CITY  | LModel |
++-------+-------+--------+
+| ankit | delhi | HP     |
++-------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select student.name , laptops.lmodel from student inner join laptops on student.id=laptops.studentId;
++--------+--------+
+| name   | lmodel |
++--------+--------+
+| ankit  | HP     |
+| sanket | Dell   |
++--------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 16
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> \n
+ERROR:
+Unknown command '\n'.
+    -> \s
+--------------
+C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe  Ver 8.0.30 for Win64 on x86_64 (MySQL Community Server - GPL)
+
+Connection id:          16
+Current database:
+Current user:           root@localhost
+SSL:                    Cipher in use is TLS_AES_256_GCM_SHA384
+Using delimiter:        ;
+Server version:         8.0.30 MySQL Community Server - GPL
+Protocol version:       10
+Connection:             localhost via TCP/IP
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    cp850
+Conn.  characterset:    cp850
+TCP port:               7867
+Binary data as:         Hexadecimal
+Uptime:                 3 days 1 hour 8 min 31 sec
+
+Threads: 2  Questions: 162  Slow queries: 0  Opens: 244  Flush tables: 3  Open tables: 159  Queries per second avg: 0.000
+--------------
+
+    -> show databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\n
+
+show databases' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| record1            |
+| sys                |
++--------------------+
+5 rows in set (0.05 sec)
+
+mysql> create database youtube;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> use youtube
+Database changed
+mysql>
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 44
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| record1            |
+| sys                |
+| youtube            |
++--------------------+
+6 rows in set (0.20 sec)
+
+mysql> use youtube;
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_youtube |
++-------------------+
+| images            |
+| table1            |
++-------------------+
+2 rows in set (0.06 sec)
+
+mysql> desc images;
++-------+------+------+-----+---------+----------------+
+| Field | Type | Null | Key | Default | Extra          |
++-------+------+------+-----+---------+----------------+
+| id    | int  | NO   | PRI | NULL    | auto_increment |
+| pic   | blob | YES  |     | NULL    |                |
++-------+------+------+-----+---------+----------------+
+2 rows in set (0.05 sec)
+
+mysql> alter table images modify pic longblob;
+Query OK, 1 row affected (1.08 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> desc images;
++-------+----------+------+-----+---------+----------------+
+| Field | Type     | Null | Key | Default | Extra          |
++-------+----------+------+-----+---------+----------------+
+| id    | int      | NO   | PRI | NULL    | auto_increment |
+| pic   | longblob | YES  |     | NULL    |                |
++-------+----------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql>
